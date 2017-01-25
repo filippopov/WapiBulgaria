@@ -88,5 +88,9 @@ $app->registerDependency(\FPopov\Services\Application\ResponseServiceInterface::
 $app->registerDependency(\FPopov\Repositories\User\UserRepositoryInterface::class, \FPopov\Repositories\User\UserRepository::class);
 $app->registerDependency(\FPopov\Repositories\Role\RoleRepositoryInterface::class, \FPopov\Repositories\Role\RoleRepository::class);
 $app->registerDependency(\FPopov\Repositories\UserRole\UserRoleRepositoryInterface::class, \FPopov\Repositories\UserRole\UserRoleRepository::class);
+$app->registerDependency(\FPopov\Services\Application\FileServiceInterface::class, \FPopov\Services\Application\FileService::class);
+$app->registerDependency(\FPopov\Services\Book\BookServiceInterface::class, \FPopov\Services\Book\BookService::class);
+$app->registerDependency(\FPopov\Repositories\Book\BookRepositoryInterface::class, \FPopov\Repositories\Book\BookRepository::class);
+$app->registerDependency(\FPopov\Repositories\BookFormat\FormatRepositoryInterface::class, \FPopov\Repositories\BookFormat\FormatRepository::class);
 
 $app->start();

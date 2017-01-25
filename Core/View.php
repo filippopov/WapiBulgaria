@@ -117,6 +117,11 @@ class View implements ViewInterface
         return $url;
     }
 
+    public function image($path)
+    {
+        return $this->mvcContext->getUriJunk() . $path;
+    }
+
     public function generateUriWithOrderParams($fieldName, $filter = array())
     {
         $filter['filter']['page'] = 0;

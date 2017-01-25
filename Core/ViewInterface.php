@@ -22,4 +22,6 @@ interface ViewInterface
     public function generatePageUrlCounter($onPage, $filter = array());
 
     public function urlSearch($filter = array());
+
+    public function image($path);
 }
