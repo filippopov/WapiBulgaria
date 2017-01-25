@@ -84,3 +84,13 @@ textarea {
 #isbn {
     margin-top: 15px;
 }
+
+.fa-picture-o {
+    color: #5cb85c;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+
+#add_book_button {
+    float: right;
+}

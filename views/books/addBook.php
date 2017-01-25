@@ -13,9 +13,12 @@
                 <fieldset class="form-group col-6" >
                     <input class="form-control" name="book_title" id="book_title" placeholder="Book Title" type="text">
                 </fieldset>
-                <fieldset class="form-group col-6" >
-                    <input class="form-control" name="publish_date" id="publish_date" placeholder="Publish Date" type="date">
-                </fieldset>
+                <div class="input-group date input-group modal-input" id="datetimepicker1">
+                    <input class="form-control" type="text">
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                </div>
             </div>
             <div class="row">
                 <fieldset class="form-group col-6" >
@@ -43,14 +46,15 @@
         <div id="add_book_form_third_part">
             <div class="row">
                 <fieldset class="form-group col-6">
-                    <i class="fa fa-picture-o" aria-hidden="true"></i><input name="book_image" type="file">
+                    <div class="row">
+                        <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i><input name="book_image" type="file">
+                    </div>
                 </fieldset>
                 <fieldset class="form-group col-6">
-                    <button type="submit" class="btn btn-success">Submit <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                    <button type="submit" id="add_book_button" class="btn btn-success">Submit <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                 </fieldset>
             </div>
         </div>
     </form>
 </div>
-
 
