@@ -32,8 +32,22 @@ class BookRepository extends AbstractRepository implements BookRepositoryInterfa
         ];
     }
 
-    public function findAllBooks()
+    public function findAllBooks(&$params = [])
     {
+        $filter = isset($params['filter']) ? $params['filter'] : [];
+
+        $page = 0;
+        $limit = 2;
+
+        if (! empty($filter)) {
+            $page = (int) isset($filter['page']) ? $filter['page'] : 0;
+            $limit = (int) isset($filter['onPage']) ? $filter['onPage'] : 2;
+        }
+
+        $offset = $page * $limit;
+
+        $limitBy = " LIMIT $limit OFFSET $offset ";
+
         $query = "
             SELECT
                 b.id,
@@ -54,15 +68,17 @@ class BookRepository extends AbstractRepository implements BookRepositoryInterfa
                 INNER JOIN 
                     users AS u ON (b.user_id = u.id)
             ORDER BY 
-                b.publish_date DESC     
+                b.publish_date DESC         
         ";
+
+        $query .= $limitBy;
 
         $stmt = $this->db->prepare($query);
 
         $stmt->execute();
 
-        while ($stmt->fetchObject(Book::class)) {
-            yield $stmt->fetchObject(Book::class);
-        }
+        $params['total'] = $stmt->rowCount();
+
+        return $stmt->fetchAll();
     }
 }

@@ -17,7 +17,7 @@ interface ViewInterface
 
     public function generateUriWithOrderParams($fieldName, $filter = array());
 
-    public function generatePageUrl($page, $filter = array());
+    public function generatePageUrl($page);
 
     public function generatePageUrlCounter($onPage, $filter = array());
 

@@ -145,11 +145,10 @@ class BookService extends AbstractService implements BookServiceInterface
         return true;
     }
 
-    public function allBooks()
+    public function allBooks($params = [])
     {
-        $allBooks = $this->bookRepository->findAllBooks();
-        foreach ($allBooks as $book) {
-            var_dump($book);
-        }
+        $allBooks = $this->bookRepository->findAllBooks($params);
+
+        return $allBooks;
     }
 }

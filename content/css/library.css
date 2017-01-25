@@ -45,6 +45,9 @@ html {
 .allBooksContainer {
     background-color: #FFFFFF;
     padding: 20px 20px;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
 }
 
 .nav-pagination {
@@ -118,3 +121,10 @@ textarea {
 .remove-padding {
     padding: 0;
 }
+
+.grid-book {
+    width: 100px;
+    height: 120px;
+    margin: 0 auto;
+}
+

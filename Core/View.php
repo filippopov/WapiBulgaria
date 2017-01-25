@@ -43,6 +43,7 @@ class View implements ViewInterface
         $isMessage = isset($params['isMessage']) ? $params['isMessage'] : true;
         $isToEscape = isset($params['isEscape']) ? $params['isEscape'] : true;
         $withNavbar = isset($params['withNavbar']) ? $params['withNavbar'] : false;
+        $paginationData = isset($params['paginationData']) ? $params['paginationData'] : [];
 
         $controller = $this->mvcContext->getController();
         $action = $this->mvcContext->getAction();
@@ -137,7 +138,7 @@ class View implements ViewInterface
         return $this->uri($this->mvcContext->getController(), $this->mvcContext->getAction(), $this->mvcContext->getArguments()) . '?' . http_build_query($filter);
     }
 
-    public function generatePageUrl($page, $filter = array())
+    public function generatePageUrl($page)
     {
         $filter['filter']['page'] = $page;
 

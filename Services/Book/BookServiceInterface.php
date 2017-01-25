@@ -17,5 +17,5 @@ interface BookServiceInterface
 
     public function addBook(BookCreateBindingModel $bindingModel);
 
-    public function allBooks();
+    public function allBooks($params = []);
 }
