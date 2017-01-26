@@ -17,12 +17,13 @@ use FPopov\Repositories\Book\BookRepository;
 use FPopov\Repositories\Book\BookRepositoryInterface;
 use FPopov\Repositories\BookFormat\FormatRepository;
 use FPopov\Repositories\BookFormat\FormatRepositoryInterface;
-use FPopov\Services\AbstractService;
 use FPopov\Services\Application\AuthenticationServiceInterface;
 use FPopov\Services\Application\ResponseServiceInterface;
 
-class BookService extends AbstractService implements BookServiceInterface
+class BookService implements BookServiceInterface
 {
+    const LIMIT_ROWS_ON_PAGE = 2;
+
     private $authenticationService;
     private $session;
     private $responseService;
@@ -145,9 +146,13 @@ class BookService extends AbstractService implements BookServiceInterface
         return true;
     }
 
-    public function allBooks($params = [])
+    public function allBooks(&$params = [])
     {
         $allBooks = $this->bookRepository->findAllBooks($params);
+
+        $booksData = $this->bookRepository->findAll();
+
+        $params['total'] = count($booksData);
 
         return $allBooks;
     }

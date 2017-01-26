@@ -123,41 +123,11 @@ class View implements ViewInterface
         return $this->mvcContext->getUriJunk() . $path;
     }
 
-    public function generateUriWithOrderParams($fieldName, $filter = array())
-    {
-        $filter['filter']['page'] = 0;
-        if (! isset($filter['filter'], $filter['filter']['order'], $filter['filter']['order'][$fieldName]) || strtoupper($filter['filter']['order'][$fieldName]) != 'ASC') {
-            $orderDest = 'ASC';
-        } else {
-            $orderDest = 'DESC';
-        }
-        $filter['filter']['order'] = array(
-            $fieldName => $orderDest
-        );
-
-        return $this->uri($this->mvcContext->getController(), $this->mvcContext->getAction(), $this->mvcContext->getArguments()) . '?' . http_build_query($filter);
-    }
-
     public function generatePageUrl($page)
     {
-        $filter['filter']['page'] = $page;
+        $filter['page'] = $page;
 
         return $this->uri($this->mvcContext->getController(), $this->mvcContext->getAction(), $this->mvcContext->getArguments()) . '?' . http_build_query($filter);
-    }
-
-    public function generatePageUrlCounter($onPage, $filter = array())
-    {
-        $filter['filter']['page'] = 1;
-        $filter['filter']['onPage'] = $onPage;
-
-        return $this->uri($this->mvcContext->getController(), $this->mvcContext->getAction(), $this->mvcContext->getArguments()) . '?' . http_build_query($filter);
-    }
-
-    public function urlSearch($filter = array())
-    {
-        unset($filter['filter']['search']);
-
-        return $this->generatePageUrl(1, $filter);
     }
 
     private function escapeAll(&$toEscape){

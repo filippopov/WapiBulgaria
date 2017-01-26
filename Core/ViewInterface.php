@@ -15,13 +15,7 @@ interface ViewInterface
 
     public function uri($controller, $action, $params = [], $getParams = '');
 
-    public function generateUriWithOrderParams($fieldName, $filter = array());
-
     public function generatePageUrl($page);
-
-    public function generatePageUrlCounter($onPage, $filter = array());
-
-    public function urlSearch($filter = array());
 
     public function image($path);
 }

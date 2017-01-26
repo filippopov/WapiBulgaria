@@ -21,10 +21,9 @@ use FPopov\Repositories\User\UserRepository;
 use FPopov\Repositories\User\UserRepositoryInterface;
 use FPopov\Repositories\UserRole\UserRoleRepository;
 use FPopov\Repositories\UserRole\UserRoleRepositoryInterface;
-use FPopov\Services\AbstractService;
 use FPopov\Services\Application\EncryptionServiceInterface;
 
-class UserService extends AbstractService  implements UserServiceInterface
+class UserService implements UserServiceInterface
 {
     const USER_ROLE = 'user';
 

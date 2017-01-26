@@ -4,14 +4,16 @@
 $uriJunk = isset($uriJunk) ? $uriJunk : '';
 $paginationData = isset($paginationData) ? $paginationData : [];
 
-$aFilter = isset($paginationData['filter']) ? $paginationData['filter'] : array();
-$iPage = isset($aFilter['page']) ? $aFilter['page'] : 0;
-$iOnPage = isset($aFilter['onPage']) ? $aFilter['onPage'] : 2;
-$iTotal = isset($paginationData['total']) ? $paginationData['total'] : 5;
-$iTotalPage = ceil($iTotal / $iOnPage);
 
-$hasPrevious = $iPage > 0;
-$haNext = $iTotalPage > $iPage + 1;
+$page = (int) isset($paginationData['page']) ? $paginationData['page'] : 0;
+
+$onPage = \FPopov\Services\Book\BookService::LIMIT_ROWS_ON_PAGE;
+$total = isset($paginationData['total']) ? $paginationData['total'] : 5;
+
+$totalPage = ceil($total / $onPage);
+
+$hasPrevious = $page > 0;
+$hasNext = $totalPage > $page + 1;
 ?>
 
 <div class="container allBooksContainer">
@@ -58,27 +60,27 @@ $haNext = $iTotalPage > $iPage + 1;
         <ul class="pagination" >
             <li>
                 <?php if ($hasPrevious) : ?>
-                    <a href="<?php echo $this->generatePageUrl($iPage - 1); ?>" aria-label="Previous">
+                    <a href="<?php echo $this->generatePageUrl($page - 1); ?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 <?php endif; ?>
             </li>
-            <?php if ($iPage > 5) : ?>
+            <?php if ($page > 5) : ?>
                 <li><span>...</span></li>
             <?php endif; ?>
-            <?php for ($i = ($iPage - 5 > 1 ? $iPage - 5 : 1); $i <= ($iTotalPage > $iPage + 5 ? $iPage + 5 : $iTotalPage); $i++) : ?>
-                <li class="<?php echo $iPage == $i - 1 ? 'active' : ''; ?>">
+            <?php for ($i = ($page - 5 > 1 ? $page - 5 : 1); $i <= ($totalPage > $page + 5 ? $page + 5 : $totalPage); $i++) : ?>
+                <li class="<?php echo $page == $i - 1 ? 'active' : ''; ?>">
                     <a href="<?php echo $this->generatePageUrl($i - 1); ?>">
                         <?php echo $i; ?>
                     </a>
                 </li>
             <?php endfor; ?>
-            <?php if ($iTotalPage - $iPage > 5) : ?>
+            <?php if ($totalPage - $page > 5) : ?>
                 <li><span>...</span></li>
             <?php endif; ?>
             <li>
-                <?php if ($haNext) : ?>
-                    <a href="<?php echo $this->generatePageUrl($iPage + 1); ?>" aria-label="Next">
+                <?php if ($hasNext) : ?>
+                    <a href="<?php echo $this->generatePageUrl($page + 1); ?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 <?php endif; ?>

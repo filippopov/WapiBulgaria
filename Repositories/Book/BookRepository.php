@@ -12,6 +12,7 @@ namespace FPopov\Repositories\Book;
 use FPopov\Adapter\DatabaseInterface;
 use FPopov\Models\DB\Books\Book;
 use FPopov\Repositories\AbstractRepository;
+use FPopov\Services\Book\BookService;
 
 class BookRepository extends AbstractRepository implements BookRepositoryInterface
 {
@@ -32,17 +33,10 @@ class BookRepository extends AbstractRepository implements BookRepositoryInterfa
         ];
     }
 
-    public function findAllBooks(&$params = [])
+    public function findAllBooks($params = [])
     {
-        $filter = isset($params['filter']) ? $params['filter'] : [];
-
-        $page = 0;
-        $limit = 2;
-
-        if (! empty($filter)) {
-            $page = (int) isset($filter['page']) ? $filter['page'] : 0;
-            $limit = (int) isset($filter['onPage']) ? $filter['onPage'] : 2;
-        }
+        $page = (int) isset($params['page']) ? $params['page'] : 0;
+        $limit = BookService::LIMIT_ROWS_ON_PAGE;
 
         $offset = $page * $limit;
 
@@ -76,8 +70,6 @@ class BookRepository extends AbstractRepository implements BookRepositoryInterfa
         $stmt = $this->db->prepare($query);
 
         $stmt->execute();
-
-        $params['total'] = $stmt->rowCount();
 
         return $stmt->fetchAll();
     }
