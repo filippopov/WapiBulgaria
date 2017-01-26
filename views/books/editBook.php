@@ -19,7 +19,7 @@ $formatData = $model->getFormatData();
             </div>
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="book_title" id="book_title" value="<?php echo $model->getBookTitle()?>" placeholder="Book Title" type="text">
+                    <input class="form-control" name="book_title" id="book_title" value="<?php echo $model->getBookTitle()?>" placeholder="Book Title" type="text" required>
                 </fieldset>
                 <div class="input-group date input-group modal-input form-group col-xs-6" id="datetimepicker1">
                     <input class="form-control" name="publish_date" id="publish_date" type="text" value="<?php echo date('d-m-Y H:i:s', strtotime($model->getPublishDate()))?>">
@@ -30,7 +30,7 @@ $formatData = $model->getFormatData();
             </div>
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="author" id="author" value="<?php echo $model->getAuthor()?>" placeholder="Author" type="text">
+                    <input class="form-control" name="author" id="author" value="<?php echo $model->getAuthor()?>" placeholder="Author" type="text" required>
                 </fieldset>
                 <fieldset class="form-group col-xs-6 remove-padding" >
                     <select class="form-control" name="select_format" id="select_format">
@@ -48,11 +48,11 @@ $formatData = $model->getFormatData();
         <div id="add_book_form_second_part">
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="page_count" id="page_count" value="<?php echo $model->getPageCount()?>" placeholder="Page Count" type="number">
-                    <input class="form-control" name="isbn" id="isbn" value="<?php echo $model->getIsbn()?>" placeholder="ISBN" type="text">
+                    <input class="form-control" name="page_count" id="page_count" value="<?php echo $model->getPageCount()?>" placeholder="Page Count" type="number" required>
+                    <input class="form-control" name="isbn" id="isbn" value="<?php echo $model->getIsbn()?>" placeholder="ISBN" type="text" required>
                 </fieldset>
                 <fieldset class="form-group col-xs-6 remove-padding">
-                    <textarea class="form-control" name="resume" id="resume" placeholder="Resume"><?php echo $model->getResume()?></textarea>
+                    <textarea class="form-control" name="resume" id="resume" placeholder="Resume" required><?php echo $model->getResume()?></textarea>
                 </fieldset>
             </div>
         </div>
@@ -73,3 +73,16 @@ $formatData = $model->getFormatData();
         </div>
     </form>
 </div>
+
+<script>
+    $(function () {
+
+        $('#addbook').validate({
+            rules: {
+                select_format: {
+                    required: true
+                }
+            }
+        });
+    });
+</script>

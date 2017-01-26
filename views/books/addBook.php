@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="author" id="author" placeholder="Author" type="text">
+                    <input class="form-control" name="author" id="author" placeholder="Author" type="text" required>
                 </fieldset>
                 <fieldset class="form-group col-xs-6 remove-padding" >
                     <select class="form-control" name="select_format" id="select_format">
@@ -41,11 +41,11 @@
         <div id="add_book_form_second_part">
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="page_count" id="page_count" placeholder="Page Count" type="number">
-                    <input class="form-control" name="isbn" id="isbn" placeholder="ISBN" type="text">
+                    <input class="form-control" name="page_count" id="page_count" placeholder="Page Count" type="number" required>
+                    <input class="form-control" name="isbn" id="isbn" placeholder="ISBN" type="text" required>
                 </fieldset>
                 <fieldset class="form-group col-xs-6 remove-padding">
-                    <textarea class="form-control" name="resume" id="resume" placeholder="Resume"></textarea>
+                    <textarea class="form-control" name="resume" id="resume" placeholder="Resume" required></textarea>
                 </fieldset>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="row">
                 <fieldset class="form-group col-xs-6">
                     <div class="row">
-                        <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i><input name="book_image" type="file">
+                        <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i><input name="book_image" type="file" required>
                     </div>
                 </fieldset>
                 <fieldset class="form-group col-xs-6">
@@ -68,7 +68,12 @@
 <script>
     $(function () {
 
-        $('#addbook').validate();
-
+        $('#addbook').validate({
+            rules: {
+                select_format: {
+                    required: true
+                }
+            }
+        });
     });
 </script>
