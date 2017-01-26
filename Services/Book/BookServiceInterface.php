@@ -10,6 +10,7 @@ namespace FPopov\Services\Book;
 
 
 use FPopov\Models\Binding\Book\BookCreateBindingModel;
+use FPopov\Models\Binding\Book\BookEditBindingModel;
 
 interface BookServiceInterface
 {
@@ -18,4 +19,10 @@ interface BookServiceInterface
     public function addBook(BookCreateBindingModel $bindingModel);
 
     public function allBooks(&$params = []);
+
+    public function deleteBook($id);
+
+    public function editBook($id);
+
+    public function editBookPost(BookEditBindingModel $bindingModel);
 }

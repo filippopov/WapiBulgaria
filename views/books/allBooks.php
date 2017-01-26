@@ -14,6 +14,7 @@ $totalPage = ceil($total / $onPage);
 
 $hasPrevious = $page > 0;
 $hasNext = $totalPage > $page + 1;
+
 ?>
 
 <div class="container allBooksContainer">
@@ -48,8 +49,8 @@ $hasNext = $totalPage > $page + 1;
                         <td><p class="grid-book"><?php echo $bookData->getIsbn()?></p></td>
                         <td><p class="grid-book"><?php echo $bookData->getPublishDate()?></p></td>
                         <td><p class="grid-book"><?php echo $bookData->getPublisher()?></p></td>
-                        <td><p class="grid-book"><a class="btn btn-primary">Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></p></td>
-                        <td><p class="grid-book"><a class="btn btn-primary">Delete <i class="fa fa-times" aria-hidden="true"></i></a></p></td>
+                        <td><p class="grid-book"><a href="<?php echo $this->uri('books', 'editBook', ['id' => $bookData->getId(), 'page' => $page]) ?>" class="btn btn-primary">Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></p></td>
+                        <td><p class="grid-book"><a class="btn btn-primary delete-button" id="<?php echo $bookData->getId() . '-' . $uriJunk?>">Delete <i class="fa fa-times" aria-hidden="true"></i></a></p></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -89,9 +90,37 @@ $hasNext = $totalPage > $page + 1;
     </nav>
 </div>
 
+<script>
+    $(function () {
+        $('.delete-button').click(function () {
+            var idData = $(this).attr('id');
+            var dataArray = idData.split("-");
+            var id = dataArray[0];
+            var urlJunk = dataArray[1];
 
-
-
+            bootbox.confirm({
+                message: "Do you wont to remove this book from library?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result === true) {
+                        $.post(urlJunk + 'books/deleteBook', {id: id}, function(result){
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        })
+    })
+</script>
 
 
 

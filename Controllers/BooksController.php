@@ -14,8 +14,10 @@ use FPopov\Core\MVC\MVCContext;
 use FPopov\Core\View;
 use FPopov\Core\ViewInterface;
 use FPopov\Models\Binding\Book\BookCreateBindingModel;
+use FPopov\Models\Binding\Book\BookEditBindingModel;
 use FPopov\Models\DB\BookFormat\Format;
 use FPopov\Models\DB\Books\Book;
+use FPopov\Models\View\Book\BookEditViewModel;
 use FPopov\Models\View\Book\BookViewModel;
 use FPopov\Models\View\BookFormat\FormatViewModel;
 use FPopov\Services\Application\AuthenticationServiceInterface;
@@ -106,18 +108,91 @@ class BooksController
 
     public function addBookPost(BookCreateBindingModel $bindingModel, FileServiceInterface $fileService)
     {
-        $filePath = $fileService->upload('book_image');
-
-        if(! $filePath) {
-            Message::postMessage('Can not upload this picture', Message::NEGATIVE_MESSAGE);
-            $this->responseService->redirect('books', 'addBook');
-            return false;
+        if (! $this->authenticationService->isAuthenticated()) {
+            $this->responseService->redirect('users', 'loginOrRegister');
         }
+
+        $filePath = $fileService->upload('book_image');
 
         $bindingModel->setBookImage($filePath);
 
         $createItem = $this->bookService->addBook($bindingModel);
 
         $this->responseService->redirect('books', 'addBook');
+    }
+
+    public function deleteBook()
+    {
+        if (! $this->authenticationService->isAuthenticated()) {
+            $this->responseService->redirect('users', 'loginOrRegister');
+        }
+
+        $id = (int) isset($_POST['id']) ? $_POST['id'] : 0;
+
+        $result = $this->bookService->deleteBook($id);
+
+        return $result;
+    }
+
+    public function editBook($id, $page)
+    {
+        if (! $this->authenticationService->isAuthenticated()) {
+            $this->responseService->redirect('users', 'loginOrRegister');
+        }
+
+        $id = (int) $id;
+
+        /** @var Format[] $pageFormats */
+        $pageFormats = $this->bookService->getBookFormats();
+        $formatData = [];
+        foreach ($pageFormats as $pageFormat) {
+            $formatData[] = new FormatViewModel($pageFormat->getId(), $pageFormat->getNameFormat());
+        }
+
+        $result = $this->bookService->editBook($id);
+
+        $bookTitle = isset($result['book_title']) ? $result['book_title'] : '';
+        $author = isset($result['author']) ? $result['author'] : '';
+        $publishDate = isset($result['publish_date']) ? $result['publish_date'] : '';
+        $nameFormat = isset($result['name_format']) ? $result['name_format'] : '';
+        $formatId = isset($result['format_id']) ? $result['format_id'] : '';
+        $pageCount = isset($result['page_count']) ? $result['page_count'] : '';
+        $isbn = isset($result['isbn']) ? $result['isbn'] : '';
+        $resume = isset($result['resume']) ? $result['resume'] : '';
+        $imagePath = isset($result['image_path']) ? $result['image_path'] : '';
+
+        $model = new BookEditViewModel(
+            $id,
+            $bookTitle,
+            $author,
+            $publishDate,
+            $nameFormat,
+            $formatId,
+            $pageCount,
+            $isbn,
+            $resume,
+            $imagePath,
+            $page,
+            $formatData
+        );
+
+        $this->view->render(['withNavbar' => true, 'model' => $model]);
+    }
+
+    public function editBookPost(BookEditBindingModel $bindingModel, FileServiceInterface $fileService)
+    {
+        if (! $this->authenticationService->isAuthenticated()) {
+            $this->responseService->redirect('users', 'loginOrRegister');
+        }
+
+        $filePath = $fileService->upload('book_image');
+
+        if($filePath) {
+            $bindingModel->setBookImage($filePath);
+        }
+
+        $result = $this->bookService->editBookPost($bindingModel);
+
+        $this->responseService->redirect('books', 'editBook', ['id' => $bindingModel->getBookId(), 'page' => $bindingModel->getBookPage()]);
     }
 }

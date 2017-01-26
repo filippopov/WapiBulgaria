@@ -12,4 +12,6 @@ namespace FPopov\Repositories\Book;
 interface BookRepositoryInterface
 {
     public function findAllBooks($params = []);
+
+    public function findOneBookById($id);
 }

@@ -73,4 +73,33 @@ class BookRepository extends AbstractRepository implements BookRepositoryInterfa
 
         return $stmt->fetchAll();
     }
+
+    public function findOneBookById($id)
+    {
+        $query = "
+            SELECT
+                b.id,
+                b.book_title,
+                b.author,
+                b.publish_date,
+                f.name_format,
+                f.id AS format_id,
+                b.page_count,
+                b.isbn,
+                b.resume,
+                b.image_path
+            FROM
+                books AS b
+                INNER JOIN
+                    formats AS f ON (b.format_id = f.id)
+            WHERE b.id = ?
+            LIMIT 1
+        ";
+
+        $stmt = $this->db->prepare($query);
+
+        $stmt->execute([$id]);
+
+        return $stmt->fetch();
+    }
 }

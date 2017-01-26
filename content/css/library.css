@@ -128,3 +128,13 @@ textarea {
     margin: 0 auto;
 }
 
+.book-edit-image {
+    float: left;
+    margin: 0 15px 0 15px;
+}
+
+.book-edit-image-input {
+    position: relative;
+    top: 50px;
+}
+

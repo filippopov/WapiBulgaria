@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <fieldset class="form-group col-xs-6" >
-                    <input class="form-control" name="book_title" id="book_title" placeholder="Book Title" type="text">
+                    <input class="form-control" name="book_title" id="book_title" placeholder="Book Title" type="text" required>
                 </fieldset>
                 <div class="input-group date input-group modal-input form-group col-xs-6" id="datetimepicker1">
                     <input class="form-control" name="publish_date" id="publish_date" type="text" value="<?php echo date('d-m-Y H:i:s')?>">
@@ -63,3 +63,12 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    $(function () {
+
+        $('#addbook').validate();
+
+    });
+</script>

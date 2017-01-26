@@ -15,6 +15,7 @@ $uriJunk = isset($uriJunk) ? $uriJunk : '';
     <link rel="stylesheet" type="text/css" href="<?php echo $uriJunk?>content/css/library.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo $uriJunk?>content/css/style.css">
 </head>
 <body>
 
@@ -25,6 +26,7 @@ $uriJunk = isset($uriJunk) ? $uriJunk : '';
 <script src="https://cdn.rawgit.com/moment/moment/develop/moment.js"></script>
 <script src="https://cdn.rawgit.com/moment/moment/master/locale/en-au.js"></script>
 <script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script type="application/javascript" src="<?php echo $uriJunk?>content/js/library.js" ></script>
-
+<script type="text/javascript" src="<?php echo $uriJunk?>content/js/jquery.validate.js"></script>
 
